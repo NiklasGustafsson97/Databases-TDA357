@@ -36,7 +36,7 @@ CREATE TABLE Branch(
 
 CREATE TABLE BelongsTo (
   student TEXT PRIMARY KEY,
-  branch TEXT NOT NULL,
+  branch TEXT, -- Any other way except null so solve this?
   program TEXT NOT NULL,
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (student, program) REFERENCES Student(ssn, program),
@@ -46,7 +46,7 @@ CREATE TABLE BelongsTo (
 CREATE TABLE Course (
   code TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  credits INTEGER NOT NULL, -- Är det integer?
+  credits INTEGER NOT NULL CHECK (credits >= 0),
   department TEXT NOT NULL,
   FOREIGN KEY (department) REFERENCES Department(name)
 );
@@ -118,7 +118,7 @@ CREATE TABLE Taken(
 
 CREATE TABLE LimitedCourse(
   code TEXT PRIMARY KEY,
-  seats INTEGER NOT NULL,
+  seats INTEGER NOT NULL CHECK (seats >= 0),
   FOREIGN KEY (code) REFERENCES Course(code)
 );
 
