@@ -2,17 +2,17 @@
 
 CREATE TABLE Program(
   name TEXT PRIMARY KEY,
-  abbreviation TEXT
+  abbreviation TEXT NOT NULL
 );
 
 CREATE TABLE Department(
   name TEXT PRIMARY KEY,
-  abbreviation TEXT UNIQUE
+  abbreviation TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE Hosts(
-  department TEXT,
-  program TEXT,
+  department TEXT NOT NULL,
+  program TEXT NOT NULL,
   FOREIGN KEY (department) REFERENCES Department(name),
   FOREIGN KEY (program) REFERENCES Program(name),
   PRIMARY KEY (department, program)
@@ -20,24 +20,24 @@ CREATE TABLE Hosts(
 
 CREATE TABLE Student(
   ssn TEXT PRIMARY KEY,
-  name TEXT,
-  login TEXT UNIQUE,
-  program TEXT,
+  name TEXT NOT NULL,
+  login TEXT NOT NULL UNIQUE,
+  program TEXT NOT NULL,
   FOREIGN KEY (program) REFERENCES Program(name),
   UNIQUE (ssn, program)
 );
 
 CREATE TABLE Branch(
-  name TEXT,
-  program TEXT,
+  name TEXT NOT NULL,
+  program TEXT NOT NULL,
   PRIMARY KEY (name, program),
   FOREIGN KEY (program) REFERENCES Program(name)
 );
 
 CREATE TABLE BelongsTo (
   student TEXT PRIMARY KEY,
-  branch TEXT,
-  program TEXT,
+  branch TEXT NOT NULL,
+  program TEXT NOT NULL,
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (student, program) REFERENCES Student(ssn, program),
   FOREIGN KEY (branch, program) REFERENCES Branch(name, program)
@@ -45,15 +45,15 @@ CREATE TABLE BelongsTo (
 
 CREATE TABLE Course (
   code TEXT PRIMARY KEY,
-  name TEXT,
-  credits INTEGER, -- Är det integer?
-  department TEXT,
+  name TEXT NOT NULL,
+  credits INTEGER NOT NULL, -- Är det integer?
+  department TEXT NOT NULL,
   FOREIGN KEY (department) REFERENCES Department(name)
 );
 
 CREATE TABLE Prerequisite (
-  course TEXT,
-  prerequisite TEXT,
+  course TEXT NOT NULL,
+  prerequisite TEXT NOT NULL,
   PRIMARY KEY (course, prerequisite),
   FOREIGN KEY (course) REFERENCES Course(code),
   FOREIGN KEY (prerequisite) REFERENCES Course(code)
@@ -64,42 +64,42 @@ CREATE TABLE Classification (
 );
 
 CREATE TABLE Classified (
-  course TEXT,
-  classification TEXT,
+  course TEXT NOT NULL,
+  classification TEXT NOT NULL,
   PRIMARY KEY (course, classification),
   FOREIGN KEY (course) REFERENCES Course(code),
   FOREIGN KEY (classification) REFERENCES Classification(name)
 );
 
 CREATE TABLE MandatoryProgram (
-  course TEXT,
-  program TEXT,
+  course TEXT NOT NULL,
+  program TEXT NOT NULL,
   PRIMARY KEY (course, program),
   FOREIGN KEY (course) REFERENCES Course(code),
   FOREIGN KEY (program) REFERENCES Program(name)
 );
 
 CREATE TABLE MandatoryBranch (
-  course TEXT,
-  branch TEXT,
-  program TEXT,
+  course TEXT NOT NULL,
+  branch TEXT NOT NULL,
+  program TEXT NOT NULL,
   PRIMARY KEY (course, branch, program),
   FOREIGN KEY (course) REFERENCES Course(code),
   FOREIGN KEY (branch, program) REFERENCES Branch(name, program)
 );
 
 CREATE TABLE RecommendedBranch (
-  course TEXT,
-  branch TEXT,
-  program TEXT,
+  course TEXT NOT NULL,
+  branch TEXT NOT NULL,
+  program TEXT NOT NULL,
   PRIMARY KEY (course, branch, program),
   FOREIGN KEY (course) REFERENCES Course(code),
   FOREIGN KEY (branch, program) REFERENCES Branch(name, program)
 );
 
 CREATE TABLE Registered(
-  student TEXT,
-  course TEXT,
+  student TEXT NOT NULL,
+  course TEXT NOT NULL,
   PRIMARY KEY (student, course),
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (course) REFERENCES Course(code)
@@ -108,9 +108,9 @@ CREATE TABLE Registered(
 CREATE TYPE GRADE AS ENUM ('U', '3', '4', '5');
 
 CREATE TABLE Taken(
-  student TEXT,
-  course TEXT,
-  grade GRADE,
+  student TEXT NOT NULL,
+  course TEXT NOT NULL,
+  grade GRADE NOT NULL,
   PRIMARY KEY (student, course),
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (course) REFERENCES Course(code)
@@ -118,13 +118,13 @@ CREATE TABLE Taken(
 
 CREATE TABLE LimitedCourse(
   code TEXT PRIMARY KEY,
-  seats INTEGER,
+  seats INTEGER NOT NULL,
   FOREIGN KEY (code) REFERENCES Course(code)
 );
 
 CREATE TABLE WaitingList(
-  student TEXT,
-  course TEXT,
+  student TEXT NOT NULL,
+  course TEXT NOT NULL,
   PRIMARY KEY (student, course),
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (course) REFERENCES LimitedCourse(code),
