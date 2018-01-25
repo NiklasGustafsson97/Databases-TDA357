@@ -30,6 +30,27 @@ INSERT INTO Branch (name, program) VALUES ('Design and Construction Project Mana
 
 -- BelongsTo
 INSERT INTO BelongsTo (student, branch, program) VALUES ('8301128466', 'Computer Languages', 'Informationsteknik');
-INSERT INTO BelongsTo (student, branch, program) VALUES ('9006232476', NULL, 'Datateknik');
 INSERT INTO BelongsTo (student, branch, program) VALUES ('9606265689', 'Architecture and Urban Design', 'Arkitektur');
-INSERT INTO BelongsTo (student, branch, program) VALUES ('8209042134', NULL, 'Informationsteknik');
+
+-- Course
+INSERT INTO Course (code, name, credits, department) VALUES ('TDA357', 'Databases', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('DAT017', 'Maskinorienterad programmering', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('EDA433', 'Grundläggande datorteknik', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MVE051', 'Matematisk statistik och diskret matematik', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('ARK505', 'Arbetets rum', 15, 'Arkitektur och samhällsbyggnadsteknik');
+
+-- Prerequisite
+INSERT INTO Prerequisite (course, prerequisite) VALUES ('DAT017', 'EDA433');
+
+-- Classification
+INSERT INTO Classification (name) VALUES ('Mathematics');
+
+-- Classified
+INSERT INTO Classified (course, classification) VALUES ('MVE051', 'Mathematics');
+
+-- MandatoryProgram
+INSERT INTO MandatoryProgram (course, program) VALUES ('DAT017', 'Informationsteknik');
+INSERT INTO MandatoryProgram (course, program) VALUES ('EDA433', 'Informationsteknik');
+INSERT INTO MandatoryProgram (course, program) VALUES ('MVE051', 'Informationsteknik');
+
+-- RecommendedBranch
