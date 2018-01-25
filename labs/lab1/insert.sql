@@ -14,10 +14,14 @@ INSERT INTO Hosts (department, program) VALUES ('Data- och informationsteknik', 
 INSERT INTO Hosts (department, program) VALUES ('Arkitektur och samhällsbyggnadsteknik', 'Arkitektur');
 
 -- Student
+INSERT INTO Student (ssn, name, login, program) VALUES ('8609232234', 'Marko Poker', 'pokerman', 'Informationsteknik');
 INSERT INTO Student (ssn, name, login, program) VALUES ('8301128466', 'Sven Svensson', 'svenmos', 'Informationsteknik');
 INSERT INTO Student (ssn, name, login, program) VALUES ('9006232476', 'Eva Johansson', 'evjas', 'Datateknik');
 INSERT INTO Student (ssn, name, login, program) VALUES ('9606265689', 'Erik Karlsson', 'erikar', 'Arkitektur');
 INSERT INTO Student (ssn, name, login, program) VALUES ('8209042134', 'Lina Persson', 'liaper', 'Informationsteknik');
+INSERT INTO Student (ssn, name, login, program) VALUES ('8209232134', 'Karl Nope', 'kamnpe', 'Datateknik');
+INSERT INTO Student (ssn, name, login, program) VALUES ('9503225546', 'Huggidugi Ekerstad', 'ehugo', 'Arkitektur');
+INSERT INTO Student (ssn, name, login, program) VALUES ('4806035598', 'Edvino Majaer', 'skedie', 'Arkitektur');
 
 -- Branch
 INSERT INTO Branch (name, program) VALUES ('Computer Languages', 'Informationsteknik');
@@ -38,19 +42,36 @@ INSERT INTO Course (code, name, credits, department) VALUES ('DAT017', 'Maskinor
 INSERT INTO Course (code, name, credits, department) VALUES ('EDA433', 'Grundläggande datorteknik', 7.5, 'Data- och informationsteknik');
 INSERT INTO Course (code, name, credits, department) VALUES ('MVE051', 'Matematisk statistik och diskret matematik', 7.5, 'Data- och informationsteknik');
 INSERT INTO Course (code, name, credits, department) VALUES ('ARK505', 'Arbetets rum', 15, 'Arkitektur och samhällsbyggnadsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MEM590', 'Grundläggande meme design', 15, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MEM624', 'Memes och samhälle', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MVE023', 'Addition i tiderna', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MVE043', 'Division i tiderna', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('MVE046', 'Komplex addition', 7.5, 'Data- och informationsteknik');
 
 -- Prerequisite
 INSERT INTO Prerequisite (course, prerequisite) VALUES ('DAT017', 'EDA433');
+INSERT INTO Prerequisite (course, prerequisite) VALUES ('MVE043', 'MVE023');
+INSERT INTO Prerequisite (course, prerequisite) VALUES ('MVE046', 'MVE043');
+INSERT INTO Prerequisite (course, prerequisite) VALUES ('MEM624', 'MEM590');
 
 -- Classification
 INSERT INTO Classification (name) VALUES ('Mathematics');
+INSERT INTO Classification (name) VALUES ('Flum');
 
 -- Classified
 INSERT INTO Classified (course, classification) VALUES ('MVE051', 'Mathematics');
+INSERT INTO Classified (course, classification) VALUES ('MVE023', 'Mathematics');
+INSERT INTO Classified (course, classification) VALUES ('MVE043', 'Mathematics');
+INSERT INTO Classified (course, classification) VALUES ('MVE046', 'Mathematics');
+INSERT INTO Classified (course, classification) VALUES ('MEM590', 'Flum');
+INSERT INTO Classified (course, classification) VALUES ('MEM624', 'Flum');
+
 
 -- MandatoryProgram
 INSERT INTO MandatoryProgram (course, program) VALUES ('DAT017', 'Informationsteknik');
 INSERT INTO MandatoryProgram (course, program) VALUES ('EDA433', 'Informationsteknik');
 INSERT INTO MandatoryProgram (course, program) VALUES ('MVE051', 'Informationsteknik');
+INSERT INTO MandatoryProgram (course, program) VALUES ('MEM590', 'Datateknik');
+INSERT INTO MandatoryProgram (course, program) VALUES ('MEM624', 'Datateknik');
 
 -- RecommendedBranch
