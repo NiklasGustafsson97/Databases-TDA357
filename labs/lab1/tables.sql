@@ -36,7 +36,7 @@ CREATE TABLE Branch(
 
 CREATE TABLE BelongsTo (
   student TEXT PRIMARY KEY,
-  branch TEXT, -- Any other way except null so solve this?
+  branch TEXT NOT NULL,
   program TEXT NOT NULL,
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (student, program) REFERENCES Student(ssn, program),
