@@ -22,6 +22,7 @@ INSERT INTO Student (ssn, name, login, program) VALUES ('8209042134', 'Lina Pers
 INSERT INTO Student (ssn, name, login, program) VALUES ('8209232134', 'Karl Nope', 'kamnpe', 'Datateknik');
 INSERT INTO Student (ssn, name, login, program) VALUES ('9503225546', 'Huggidugi Ekerstad', 'ehugo', 'Arkitektur');
 INSERT INTO Student (ssn, name, login, program) VALUES ('4806035598', 'Edvino Majaer', 'skedie', 'Arkitektur');
+INSERT INTO Student (ssn, name, login, program) VALUES ('9712127384', 'Zacko Macho', 'zackm', 'Informationsteknik');
 
 -- Branch
 INSERT INTO Branch (name, program) VALUES ('Computer Languages', 'Informationsteknik');
@@ -83,8 +84,19 @@ INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM590', 'Algor
 INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM624', 'Algorithms', 'Informationsteknik');
 
 -- Registered
-INSERT INTO Registered (student, course) VALUES ('8609232234', 'MVE051');
+INSERT INTO Registered (student, course) VALUES ('8609232234', 'MEM590');
+INSERT INTO Registered (student, course) VALUES ('8301128466', 'EDA433');
 
 -- Taken
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'DAT017', '4');
+
+-- LimitedCourse
+INSERT INTO LimitedCourse (student, course) VALUES ('EDA433', 1);
+INSERT INTO LimitedCourse (student, course) VALUES ('MEM590', 1);
+
+-- WaitingList
+INSERT INTO WaitingList (student, course) VALUES ('8209042134', 'MEM590');
+INSERT INTO WaitingList (student, course) VALUES ('8209232134', 'EDA433');
+INSERT INTO WaitingList (student, course) VALUES ('', '');		-- TODO
+
