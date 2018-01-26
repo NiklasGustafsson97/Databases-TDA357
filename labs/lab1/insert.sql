@@ -66,7 +66,6 @@ INSERT INTO Classified (course, classification) VALUES ('MVE046', 'Mathematics')
 INSERT INTO Classified (course, classification) VALUES ('MEM590', 'Flum');
 INSERT INTO Classified (course, classification) VALUES ('MEM624', 'Flum');
 
-
 -- MandatoryProgram
 INSERT INTO MandatoryProgram (course, program) VALUES ('DAT017', 'Informationsteknik');
 INSERT INTO MandatoryProgram (course, program) VALUES ('EDA433', 'Informationsteknik');
@@ -74,4 +73,18 @@ INSERT INTO MandatoryProgram (course, program) VALUES ('MVE051', 'Informationste
 INSERT INTO MandatoryProgram (course, program) VALUES ('MEM590', 'Datateknik');
 INSERT INTO MandatoryProgram (course, program) VALUES ('MEM624', 'Datateknik');
 
+-- MandatoryBranch
+INSERT INTO MandatoryBranch (course, branch, program) VALUES ('MVE023', 'Algorithms', 'Informationsteknik');
+INSERT INTO MandatoryBranch (course, branch, program) VALUES ('MVE043', 'Algorithms', 'Informationsteknik');
+INSERT INTO MandatoryBranch (course, branch, program) VALUES ('MVE046', 'Algorithms', 'Informationsteknik');
+
 -- RecommendedBranch
+INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM590', 'Algorithms', 'Informationsteknik');
+INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM624', 'Algorithms', 'Informationsteknik');
+
+-- Registered
+INSERT INTO Registered (student, course) VALUES ('8609232234', 'MVE051');
+
+-- Taken
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'DAT017', '4');
