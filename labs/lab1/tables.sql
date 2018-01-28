@@ -47,7 +47,7 @@ CREATE TABLE BelongsTo (
 CREATE TABLE Course (
   code TEXT PRIMARY KEY,
   name TEXT NOT NULL,
-  credits INTEGER NOT NULL CHECK (credits >= 0),
+  credits NUMERIC NOT NULL CHECK (credits >= 0),
   department TEXT NOT NULL,
   FOREIGN KEY (department) REFERENCES Department(name)
 );
