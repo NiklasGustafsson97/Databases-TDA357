@@ -1,4 +1,5 @@
 -- Great place for testing if SQL code is correct: http://sqlfiddle.com/#!17
+-- Or even better https://www.db-fiddle.com
 
 CREATE TABLE Program(
   name TEXT PRIMARY KEY,

@@ -36,6 +36,7 @@ INSERT INTO Branch (name, program) VALUES ('Design and Construction Project Mana
 -- BelongsTo
 INSERT INTO BelongsTo (student, branch, program) VALUES ('8301128466', 'Computer Languages', 'Informationsteknik');
 INSERT INTO BelongsTo (student, branch, program) VALUES ('9606265689', 'Architecture and Urban Design', 'Arkitektur');
+INSERT INTO BelongsTo (student, branch, program) VALUES ('9712127384', 'Algorithms', 'Informationsteknik');
 
 -- Course
 INSERT INTO Course (code, name, credits, department) VALUES ('TDA357', 'Databases', 7.5, 'Data- och informationsteknik');
@@ -92,11 +93,10 @@ INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'DAT017', '4');
 
 -- LimitedCourse
-INSERT INTO LimitedCourse (student, course) VALUES ('EDA433', 1);
-INSERT INTO LimitedCourse (student, course) VALUES ('MEM590', 1);
+INSERT INTO LimitedCourse (code, seats) VALUES ('EDA433', 1);
+INSERT INTO LimitedCourse (code, seats) VALUES ('MEM590', 1);
 
 -- WaitingList
 INSERT INTO WaitingList (student, course) VALUES ('8209042134', 'MEM590');
 INSERT INTO WaitingList (student, course) VALUES ('8209232134', 'EDA433');
-INSERT INTO WaitingList (student, course) VALUES ('', '');		-- TODO
-
+-- INSERT INTO WaitingList (student, course) VALUES ('', '');		-- TODO
