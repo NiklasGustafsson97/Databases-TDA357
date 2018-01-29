@@ -92,6 +92,7 @@ INSERT INTO Registered (student, course) VALUES ('8301128466', 'EDA433');
 -- Taken
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'DAT017', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE051', '4');
 
 -- LimitedCourse
 INSERT INTO LimitedCourse (code, seats) VALUES ('EDA433', 1);
