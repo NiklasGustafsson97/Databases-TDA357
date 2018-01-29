@@ -42,3 +42,37 @@ CREATE VIEW UnreadMandatory AS
   );
 
 -- PathToGraduation(student, totalCredits, mandatoryLeft, mathCredits, researchCredits, seminarCourses, status)
+SELECT TotalCredits.student, totalCredits, mandatoryLeft, mathCredits, researchCredits, seminarCourses, mathCredits >= 20 AND researchCredits >= 10 AND seminarCourses >= 1 as status
+FROM
+  (
+    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS totalCredits
+    FROM PassedCourses, Student
+    GROUP BY PassedCourses.student
+  ) AS TotalCredits,
+  (
+    SELECT UnreadMandatory.student, COUNT(UnreadMandatory) AS mandatoryLeft
+    FROM UnreadMandatory
+    GROUP BY UnreadMandatory.student
+  ) AS MandatoryLeft,
+  (
+    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS mathCredits
+    FROM PassedCourses
+    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE course = 'Mathematics')
+    GROUP BY PassedCourses.student
+  ) AS MathCredits,
+  (
+    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS researchCredits
+    FROM PassedCourses
+    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE course = 'Research')
+    GROUP BY PassedCourses.student
+  ) AS ResearchCredits,
+  (
+    SELECT PassedCourses.student, COUNT(PassedCourses) AS seminarCourses
+    FROM PassedCourses
+    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE course = 'Seminar')
+    GROUP BY PassedCourses.student
+  ) AS SeminarCourses
+WHERE TotalCredits.student = MandatoryLeft.student
+AND TotalCredits.student = MathCredits.student
+AND TotalCredits.student = ResearchCredits.student
+AND TotalCredits.student = SeminarCourses.student;

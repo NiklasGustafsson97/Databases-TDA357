@@ -59,6 +59,7 @@ INSERT INTO Prerequisite (course, prerequisite) VALUES ('MEM624', 'MEM590');
 -- Classification
 INSERT INTO Classification (name) VALUES ('Mathematics');
 INSERT INTO Classification (name) VALUES ('Flum');
+INSERT INTO Classification (name) VALUES ('Research');
 
 -- Classified
 INSERT INTO Classified (course, classification) VALUES ('MVE051', 'Mathematics');
