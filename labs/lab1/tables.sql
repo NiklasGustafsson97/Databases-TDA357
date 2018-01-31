@@ -126,8 +126,9 @@ CREATE TABLE LimitedCourse(
 CREATE TABLE WaitingList(
   student TEXT NOT NULL,
   course TEXT NOT NULL,
+  position INTEGER NOT NULL CHECK (position >= 0),
   PRIMARY KEY (student, course),
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (course) REFERENCES LimitedCourse(code),
-  UNIQUE (student, course)
+  UNIQUE (position, course)
 );

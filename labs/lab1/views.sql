@@ -42,45 +42,46 @@ CREATE VIEW UnreadMandatory AS
   );
 
 -- PathToGraduation(student, totalCredits, mandatoryLeft, mathCredits, researchCredits, seminarCourses, status)
-SELECT Student.ssn,
-COALESCE (totalCredits,0) AS totalCredits,
-COALESCE (mandatoryLeft,0) AS mandatoryLeft,
-COALESCE (mathCredits,0) AS mathCredits,
-COALESCE (researchCredits,0) AS researchCredits,
-COALESCE (seminarCourses,0) AS seminarCourses,
-COALESCE (mathCredits >= 20 AND researchCredits >= 10 AND seminarCourses >= 1, FALSE) AS status
-FROM
-  Student
-  FULL OUTER JOIN (
-    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS totalCredits
-    FROM PassedCourses
-    GROUP BY PassedCourses.student
-  ) TotalCredits
-  ON Student.ssn = TotalCredits.student
-  FULL OUTER JOIN (
-    SELECT UnreadMandatory.student, COUNT(UnreadMandatory.course) AS mandatoryLeft
-    FROM UnreadMandatory
-    GROUP BY UnreadMandatory.student
-  ) UnreadMandatory
-  ON Student.ssn = UnreadMandatory.student
-  FULL OUTER JOIN (
-    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS mathCredits
-    FROM PassedCourses
-    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Mathematics')
-    GROUP BY PassedCourses.student
-  ) MathCredits
-  ON Student.ssn = MathCredits.student
-  FULL OUTER JOIN (
-    SELECT PassedCourses.student, SUM(PassedCourses.credits) AS researchCredits
-    FROM PassedCourses
-    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Research')
-    GROUP BY PassedCourses.student
-  ) ResearchCredits
-  ON Student.ssn = ResearchCredits.student
-  FULL OUTER JOIN (
-    SELECT PassedCourses.student, COUNT(PassedCourses.course) AS seminarCourses
-    FROM PassedCourses
-    WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Seminar')
-    GROUP BY PassedCourses.student
-  ) SeminarCourses
-  ON Student.ssn = SeminarCourses.student;
+CREATE VIEW PathToGraduation AS
+  SELECT Student.ssn,
+  COALESCE (totalCredits,0) AS totalCredits,
+  COALESCE (mandatoryLeft,0) AS mandatoryLeft,
+  COALESCE (mathCredits,0) AS mathCredits,
+  COALESCE (researchCredits,0) AS researchCredits,
+  COALESCE (seminarCourses,0) AS seminarCourses,
+  COALESCE (mathCredits >= 20 AND researchCredits >= 10 AND seminarCourses >= 1, FALSE) AS status
+  FROM
+    Student
+    FULL OUTER JOIN (
+      SELECT PassedCourses.student, SUM(PassedCourses.credits) AS totalCredits
+      FROM PassedCourses
+      GROUP BY PassedCourses.student
+    ) TotalCredits
+    ON Student.ssn = TotalCredits.student
+    FULL OUTER JOIN (
+      SELECT UnreadMandatory.student, COUNT(UnreadMandatory.course) AS mandatoryLeft
+      FROM UnreadMandatory
+      GROUP BY UnreadMandatory.student
+    ) UnreadMandatory
+    ON Student.ssn = UnreadMandatory.student
+    FULL OUTER JOIN (
+      SELECT PassedCourses.student, SUM(PassedCourses.credits) AS mathCredits
+      FROM PassedCourses
+      WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Mathematics')
+      GROUP BY PassedCourses.student
+    ) MathCredits
+    ON Student.ssn = MathCredits.student
+    FULL OUTER JOIN (
+      SELECT PassedCourses.student, SUM(PassedCourses.credits) AS researchCredits
+      FROM PassedCourses
+      WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Research')
+      GROUP BY PassedCourses.student
+    ) ResearchCredits
+    ON Student.ssn = ResearchCredits.student
+    FULL OUTER JOIN (
+      SELECT PassedCourses.student, COUNT(PassedCourses.course) AS seminarCourses
+      FROM PassedCourses
+      WHERE PassedCourses.course IN (SELECT course FROM Classified WHERE classification = 'Seminar')
+      GROUP BY PassedCourses.student
+    ) SeminarCourses
+    ON Student.ssn = SeminarCourses.student;
