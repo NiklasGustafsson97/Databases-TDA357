@@ -43,13 +43,13 @@ CREATE VIEW UnreadMandatory AS
 
 -- PathToGraduation(student, totalCredits, mandatoryLeft, mathCredits, researchCredits, seminarCourses, status)
 CREATE VIEW PathToGraduation AS
-  SELECT Student.ssn,
+  SELECT Student.ssn AS student,
   COALESCE (totalCredits,0) AS totalCredits,
   COALESCE (mandatoryLeft,0) AS mandatoryLeft,
   COALESCE (mathCredits,0) AS mathCredits,
   COALESCE (researchCredits,0) AS researchCredits,
   COALESCE (seminarCourses,0) AS seminarCourses,
-  COALESCE (mathCredits >= 20 AND researchCredits >= 10 AND seminarCourses >= 1, FALSE) AS status
+  COALESCE (mathCredits >= 20 AND researchCredits >= 10 AND seminarCourses >= 1 AND EXISTS(SELECT * FROM BelongsTo WHERE student = Student.ssn), FALSE) AS status
   FROM
     Student
     FULL OUTER JOIN (
