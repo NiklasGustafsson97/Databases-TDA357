@@ -1,4 +1,3 @@
-
 -- Programs
 INSERT INTO Program (name, abbreviation) VALUES ('Informationsteknik', 'IT');
 INSERT INTO Program (name, abbreviation) VALUES ('Datateknik', 'D');
@@ -37,6 +36,7 @@ INSERT INTO Branch (name, program) VALUES ('Design and Construction Project Mana
 INSERT INTO BelongsTo (student, branch, program) VALUES ('8301128466', 'Computer Languages', 'Informationsteknik');
 INSERT INTO BelongsTo (student, branch, program) VALUES ('9606265689', 'Architecture and Urban Design', 'Arkitektur');
 INSERT INTO BelongsTo (student, branch, program) VALUES ('9712127384', 'Algorithms', 'Informationsteknik');
+INSERT INTO BelongsTo (student, branch, program) VALUES ('8609232234', 'Algorithms', 'Informationsteknik');
 
 -- Course
 INSERT INTO Course (code, name, credits, department) VALUES ('TDA357', 'Databases', 7.5, 'Data- och informationsteknik');
@@ -49,6 +49,7 @@ INSERT INTO Course (code, name, credits, department) VALUES ('MEM624', 'Memes oc
 INSERT INTO Course (code, name, credits, department) VALUES ('MVE023', 'Addition i tiderna', 7.5, 'Data- och informationsteknik');
 INSERT INTO Course (code, name, credits, department) VALUES ('MVE043', 'Division i tiderna', 7.5, 'Data- och informationsteknik');
 INSERT INTO Course (code, name, credits, department) VALUES ('MVE046', 'Komplex addition', 7.5, 'Data- och informationsteknik');
+INSERT INTO Course (code, name, credits, department) VALUES ('SEM245', 'Lego verkstad', 10, 'Data- och informationsteknik');
 
 -- Prerequisite
 INSERT INTO Prerequisite (course, prerequisite) VALUES ('DAT017', 'EDA433');
@@ -58,16 +59,17 @@ INSERT INTO Prerequisite (course, prerequisite) VALUES ('MEM624', 'MEM590');
 
 -- Classification
 INSERT INTO Classification (name) VALUES ('Mathematics');
-INSERT INTO Classification (name) VALUES ('Flum');
 INSERT INTO Classification (name) VALUES ('Research');
+INSERT INTO Classification (name) VALUES ('Seminar');
 
 -- Classified
 INSERT INTO Classified (course, classification) VALUES ('MVE051', 'Mathematics');
 INSERT INTO Classified (course, classification) VALUES ('MVE023', 'Mathematics');
 INSERT INTO Classified (course, classification) VALUES ('MVE043', 'Mathematics');
 INSERT INTO Classified (course, classification) VALUES ('MVE046', 'Mathematics');
-INSERT INTO Classified (course, classification) VALUES ('MEM590', 'Flum');
-INSERT INTO Classified (course, classification) VALUES ('MEM624', 'Flum');
+INSERT INTO Classified (course, classification) VALUES ('MEM590', 'Research');
+INSERT INTO Classified (course, classification) VALUES ('MEM624', 'Research');
+INSERT INTO Classified (course, classification) VALUES ('SEM245', 'Seminar');
 
 -- MandatoryProgram
 INSERT INTO MandatoryProgram (course, program) VALUES ('DAT017', 'Informationsteknik');
@@ -86,18 +88,24 @@ INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM590', 'Algor
 INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM624', 'Algorithms', 'Informationsteknik');
 
 -- Registered
-INSERT INTO Registered (student, course) VALUES ('8609232234', 'MEM590');
+INSERT INTO Registered (student, course) VALUES ('8209042134', 'MEM590');
 INSERT INTO Registered (student, course) VALUES ('8301128466', 'EDA433');
 
 -- Taken
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'DAT017', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE051', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MEM590', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MEM624', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'SEM245', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE023', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE043', '4');
+INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE046', '4');
 
 -- LimitedCourse
 INSERT INTO LimitedCourse (code, seats) VALUES ('EDA433', 1);
 INSERT INTO LimitedCourse (code, seats) VALUES ('MEM590', 1);
 
 -- WaitingList
-INSERT INTO WaitingList (student, course) VALUES ('8209042134', 'MEM590');
-INSERT INTO WaitingList (student, course) VALUES ('8209232134', 'EDA433');
--- INSERT INTO WaitingList (student, course) VALUES ('', '');		-- TODO
+INSERT INTO WaitingList (student, course, position) VALUES ('8209042134', 'MEM590', 0);
+INSERT INTO WaitingList (student, course, position) VALUES ('8209232134', 'EDA433', 0);
