@@ -1,0 +1,18 @@
+ENTITY Student : _ssn name login
+ENTITY Program : _name abbrevation
+ENTITY Department : _abbrevation name
+ENTITY Course : _code name places credits
+ENTITY Classification : _name
+WEAK ENTITY Branch Program BranchIsPartOf : _name
+
+RELATIONSHIP Classified Course -- Classification
+RELATIONSHIP BelongsTo Student -) Program
+RELATIONSHIP Hosts Department -- Program
+RELATIONSHIP Registered Student -- Course
+RELATIONSHIP WaitingForSpot Student -- Course : spot
+RELATIONSHIP MandatoryProgram Program -- Course
+RELATIONSHIP RecommendedBranch Branch -- Course
+RELATIONSHIP MandatoryBranch Branch -- Course
+RELATIONSHIP Taken Student -- Course : grade
+RELATIONSHIP Prerequisite Course -- Course
+RELATIONSHIP BelongsTo Student -> Branch
