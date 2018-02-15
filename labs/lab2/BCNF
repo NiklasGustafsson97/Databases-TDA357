@@ -1,0 +1,27 @@
+studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname classname coursegrade waitingspot
+
+studentssn -> studentname studentlogin programname branchname
+studentssn ->> coursecode
+studentssn coursecode ->> coursegrade
+
+departmentabbr -> departmentname
+departmentname ->> branchname
+
+programname -> programabbr
+programname ->> coursecode
+programname ->> studentssn
+programname ->> departmentabbr
+programname ->> branchname
+
+coursecode -> coursename coursecredits courseplaces
+coursecode ->> classname
+coursecode ->> programname
+coursecode ->> branchname
+coursecode ->> studentssn
+coursecode ->> coursecode
+
+branchname -> programname
+branchname ->> coursecode
+branchname ->> studentssn
+
+studentssn coursecode -> waitingspot
