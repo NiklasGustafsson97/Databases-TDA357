@@ -1,11 +1,15 @@
-studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname classname coursegrade waitingspot
+studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname classificationname coursegrade waitingspot
+
+studentname ->> studentssn
 
 studentssn -> studentname studentlogin programname branchname
 studentssn ->> coursecode
 studentssn coursecode ->> coursegrade
 
 departmentabbr -> departmentname
-departmentname ->> branchname
+departmentabbr ->> programname
+
+programabbr ->> programname
 
 programname -> programabbr
 programname ->> coursecode
@@ -14,13 +18,15 @@ programname ->> departmentabbr
 programname ->> branchname
 
 coursecode -> coursename coursecredits courseplaces
-coursecode ->> classname
+coursecode ->> classificationname
 coursecode ->> programname
 coursecode ->> branchname
 coursecode ->> studentssn
 coursecode ->> coursecode
 
-branchname -> programname
+classificationname ->> coursecode
+
+branchname ->> programname
 branchname ->> coursecode
 branchname ->> studentssn
 
