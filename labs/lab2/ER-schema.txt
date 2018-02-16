@@ -21,6 +21,10 @@ Classified(_courseCode,_classificationName)
   courseCode -> Course.code
   classificationName -> Classification.name
 
+BelongsToBranch(_studentSsn,branchName,branchProgramName)
+  studentSsn -> Student.ssn
+  (branchName,branchProgramName) -> Branch.(name,programName)
+
 Hosts(_departmentAbbrevation,_programName)
   departmentAbbrevation -> Department.abbrevation
   programName -> Program.name
@@ -32,7 +36,7 @@ Registered(_studentSsn,_courseCode)
 WaitingForSpot(_studentSsn,_courseCode,spot)
   studentSsn -> Student.ssn
   courseCode -> Course.code
-  UNIQUE(courseCode, spot)
+  UNIQUE (courseCode, spot)
 
 MandatoryProgram(_programName,_courseCode)
   programName -> Program.name
