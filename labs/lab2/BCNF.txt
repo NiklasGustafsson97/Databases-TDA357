@@ -2,9 +2,15 @@ studentlogin studentname studentssn departmentname departmentabbr programabbr pr
 
 studentssn -> studentlogin studentname branchname programname
 studentssn coursecode -> coursegrade waitingspot
+studentlogin -> studentssn studentname branchname programname
+
+coursecode waitingspot -> studentssn studentlogin
 
 departmentabbr -> departmentname
 departmentname -> departmentabbr
+
+programname departmentname -> departmentname
+
 
 programname -> programabbr
 
