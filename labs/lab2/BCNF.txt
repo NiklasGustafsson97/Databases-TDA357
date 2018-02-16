@@ -1,14 +1,7 @@
-studentlogin studentname studentssn
-departmentname departmentabbr 
-programabbr programname 
-coursename coursecode coursecredits courseplaces 
-branchname classname 
-coursegrade waitingspot grade
-
+studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname coursegrade waitingspot
 
 studentssn -> studentlogin studentname branchname programname
-
-studentssn coursecode -> grade waitingspot
+studentssn coursecode -> coursegrade waitingspot
 
 departmentabbr -> departmentname
 departmentname -> departmentabbr
@@ -16,4 +9,3 @@ departmentname -> departmentabbr
 programname -> programabbr
 
 coursecode -> coursename coursecredits courseplaces
-branchname -> programname
