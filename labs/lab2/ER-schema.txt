@@ -36,7 +36,6 @@ Registered(_studentSsn,_courseCode)
 WaitingForSpot(_studentSsn,_courseCode,spot)
   studentSsn -> Student.ssn
   courseCode -> Course.code
-  UNIQUE (courseCode, spot)
 
 MandatoryProgram(_programName,_courseCode)
   programName -> Program.name
