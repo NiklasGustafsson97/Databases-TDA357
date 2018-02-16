@@ -1,4 +1,4 @@
-studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname coursegrade waitingspot
+Domain(studentlogin, studentname, studentssn, departmentname, departmentabbr, programabbr, programname, coursename, coursecode, coursecredits, courseplaces, branchname, coursegrade, waitingspot)
 
 studentssn -> studentlogin studentname branchname programname
 studentssn coursecode -> coursegrade waitingspot
