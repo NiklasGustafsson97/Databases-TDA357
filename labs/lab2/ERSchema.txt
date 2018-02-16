@@ -1,0 +1,55 @@
+Student(_ssn,name,login,programName)
+  programName -> Program.name
+  UNIQUE login
+
+Program(_name,abbrevation)
+
+Department(_abbrevation,name)
+  UNIQUE name
+
+Course(_code,name,credits)
+
+Classification(_name)
+
+Branch(_name,_programName)
+  programName -> Program.name
+
+LimitedCourse(_code,places)
+  code -> Course.code
+
+Classified(_courseCode,_classificationName)
+  courseCode -> Course.code
+  classificationName -> Classification.name
+
+Hosts(_departmentAbbrevation,_programName)
+  departmentAbbrevation -> Department.abbrevation
+  programName -> Program.name
+
+Registered(_studentSsn,_courseCode)
+  studentSsn -> Student.ssn
+  courseCode -> Course.code
+
+WaitingForSpot(_studentSsn,_courseCode,spot)
+  studentSsn -> Student.ssn
+  courseCode -> Course.code
+  UNIQUE(courseCode, spot)
+
+MandatoryProgram(_programName,_courseCode)
+  programName -> Program.name
+  courseCode -> Course.code
+
+RecommendedBranch(_branchName,_branchProgramName,_courseCode)
+  (branchName,branchProgramName) -> Branch.(name,programName)
+  courseCode -> Course.code
+
+MandatoryBranch(_branchName,_branchProgramName,_courseCode)
+  (branchName,branchProgramName) -> Branch.(name,programName)
+  courseCode -> Course.code
+
+Taken(_studentSsn,_courseCode,grade)
+  studentSsn -> Student.ssn
+  courseCode -> Course.code
+
+Prerequisite(_courseCode1,_courseCode2)
+  courseCode1 -> Course.code
+  courseCode2 -> Course.code

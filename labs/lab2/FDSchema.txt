@@ -1,0 +1,20 @@
+Course(_code_, name, credits, places)
+
+Program(_name_, abbr)
+
+Student(_ssn_, login, name, program, branch)
+	UNIQUE login
+	program -> Program.name
+
+CourseStatus(_student_, _course_, grade, waitingspot)
+	student -> Student.ssn
+	course -> Course.code
+	UNIQUE (course, waitingspot)
+
+Department(_name_, abbr)
+	UNIQUE abbr
+
+Relation(_department_, _course_, _waitingspot_)
+	department -> Department.name
+	course -> Course.code
+	waitingspot -> CourseStatus.waitingspot
