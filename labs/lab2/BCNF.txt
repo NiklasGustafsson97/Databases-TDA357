@@ -1,0 +1,19 @@
+studentlogin studentname studentssn
+departmentname departmentabbr 
+programabbr programname 
+coursename coursecode coursecredits courseplaces 
+branchname classname 
+coursegrade waitingspot grade
+
+
+studentssn -> studentlogin studentname branchname programname
+
+studentssn coursecode -> grade waitingspot
+
+departmentabbr -> departmentname
+departmentname -> departmentabbr
+
+programname -> programabbr
+
+coursecode -> coursename coursecredits courseplaces
+branchname -> programname
