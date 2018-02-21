@@ -107,5 +107,5 @@ INSERT INTO LimitedCourse (code, seats) VALUES ('EDA433', 1);
 INSERT INTO LimitedCourse (code, seats) VALUES ('MEM590', 1);
 
 -- WaitingList
-INSERT INTO WaitingList (student, course, position) VALUES ('8209042134', 'MEM590', 0);
-INSERT INTO WaitingList (student, course, position) VALUES ('8209232134', 'EDA433', 0);
+INSERT INTO WaitingList (student, course, position) VALUES ('8209042134', 'MEM590', 1);
+INSERT INTO WaitingList (student, course, position) VALUES ('8209232134', 'EDA433', 1);

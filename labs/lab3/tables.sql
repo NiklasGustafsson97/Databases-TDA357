@@ -119,14 +119,14 @@ CREATE TABLE Taken(
 
 CREATE TABLE LimitedCourse(
   code TEXT PRIMARY KEY,
-  seats INTEGER NOT NULL CHECK (seats >= 0),
+  seats INTEGER NOT NULL CHECK (seats >= 1),
   FOREIGN KEY (code) REFERENCES Course(code)
 );
 
 CREATE TABLE WaitingList(
   student TEXT NOT NULL,
   course TEXT NOT NULL,
-  position INTEGER NOT NULL CHECK (position >= 0),
+  position INTEGER NOT NULL CHECK (position >= 1),
   PRIMARY KEY (student, course),
   FOREIGN KEY (student) REFERENCES Student(ssn),
   FOREIGN KEY (course) REFERENCES LimitedCourse(code),
