@@ -10,6 +10,11 @@ CREATE OR REPLACE FUNCTION register() RETURNS trigger AS $$
 			THEN RAISE EXCEPTION '% has not fulfilled req for this course', NEW.student;
 		END IF;
 
+		--Check if student has completed course before
+		IF(EXISTS(SELECT student FROM Taken WHERE student = NEW.student AND course = NEW.course AND grade != 'U'))
+			THEN RAISE EXCEPTION '% has already completed course %', NEW.student, NEW.course;
+		END IF;
+
 		--Check if student already is in reg
 		IF(EXISTS (SELECT student FROM Registered WHERE student = NEW.student AND course = NEW.course))
 			THEN RAISE EXCEPTION '% is already registered on course %', NEW.student, NEW.course;
@@ -17,7 +22,10 @@ CREATE OR REPLACE FUNCTION register() RETURNS trigger AS $$
 
 		--Check if course is limited. If not reg for course.
 		IF(NOT EXISTS (SELECT code FROM LimitedCourse WHERE code = NEW.course))
-			THEN RETURN NEW;
+			THEN 
+			--Insert into register
+			INSERT INTO Registered(student, course) VALUES (NEW.student, NEW.course);	
+			RETURN NEW;
 		END IF;
 
 		--Check if student already in WL 
@@ -34,13 +42,17 @@ CREATE OR REPLACE FUNCTION register() RETURNS trigger AS $$
 			);
 			
 			RETURN null;
-		END IF;
+		END IF;	
+
+		--Insert into register - Limited course
+		INSERT INTO Registered(student, course) VALUES (NEW.student, NEW.course);	
+
 		RETURN NEW;
 	END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER register
-	BEFORE INSERT ON Registered
+	INSTEAD OF INSERT ON Registrations
 	FOR EACH ROW
 	EXECUTE PROCEDURE register() ;
 
@@ -58,30 +70,46 @@ CREATE OR REPLACE FUNCTION unregister() RETURNS trigger AS $$
 
 		--Check if not limitedcourse
 		IF(NOT EXISTS (SELECT code FROM LimitedCourse WHERE code = OLD.course))
-			THEN RETURN NEW;
+			THEN 
+			DELETE FROM Registered WHERE student = OLD.student AND course = OLD.course;
+			RETURN NEW;
+		END IF;
+
+		--Check if student is in waiting list
+		IF(EXISTS (SELECT student FROM WaitingList WHERE course = OLD.course AND student = OLD.student))
+			THEN
+			WITH student AS (DELETE FROM WaitingList WHERE course = OLD.course AND student = OLD.student RETURNING student, course, position)
+				UPDATE WaitingList SET position = position - 1 WHERE course = OLD.course AND position > position; 
+			RETURN NEW;
 		END IF;
 
 		--Check if course is still full
-		IF((SELECT Count(student) FROM Registered WHERE course = OLD.course) >= (SELECT seats FROM LimitedCourse WHERE code = OLD.course))
-			THEN RETURN NEW;
+		IF((SELECT Count(student) FROM Registered WHERE course = OLD.course) - 1 >= (SELECT seats FROM LimitedCourse WHERE code = OLD.course))
+			THEN 
+			DELETE FROM Registered WHERE student = OLD.student AND course = OLD.course;
+			RETURN NEW;
 		END IF;
 
-		--Check if there are students in waitinglist
+		--Check if there are no students in waitinglist
 		IF(NOT EXISTS (SELECT student FROM WaitingList WHERE course = OLD.course))
-			THEN RETURN NEW;
+			THEN
+			DELETE FROM Registered WHERE student = OLD.student AND course = OLD.course;
+			RETURN NEW;
 		END IF;
 		
+		--Remove student first student from waiting list and place in registered
 		WITH student AS (DELETE FROM WaitingList WHERE course = OLD.course AND position = 1 RETURNING student, course)
 			INSERT INTO Registered(student, course) SELECT student, course FROM student;
 				
 		UPDATE WaitingList SET position = position - 1 WHERE course = OLD.course;
 
+		DELETE FROM Registered WHERE student = OLD.student AND course = OLD.course;
 		RETURN NEW;
 	END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER unregister
-	AFTER DELETE ON Registered
+	INSTEAD OF DELETE ON Registrations
 	FOR EACH ROW
 	EXECUTE PROCEDURE unregister() ;
 
