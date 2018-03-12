@@ -320,6 +320,8 @@ INSERT INTO RecommendedBranch (course, branch, program) VALUES ('MEM624', 'Algor
 -- Registered
 INSERT INTO Registered (student, course) VALUES ('8209042134', 'MEM590');
 INSERT INTO Registered (student, course) VALUES ('8301128466', 'EDA433');
+INSERT INTO Registered (student, course) VALUES ('8301128466', 'SEM245');
+INSERT INTO Registered (student, course) VALUES ('9712127384', 'SEM245');
 
 -- Taken
 INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'EDA433', '3');
@@ -335,7 +337,9 @@ INSERT INTO Taken (student, course, grade) VALUES ('8609232234', 'MVE046', '4');
 -- LimitedCourse
 INSERT INTO LimitedCourse (code, seats) VALUES ('EDA433', 1);
 INSERT INTO LimitedCourse (code, seats) VALUES ('MEM590', 1);
+INSERT INTO LimitedCourse (code, seats) VALUES ('SEM245', 1);
 
 -- WaitingList
-INSERT INTO WaitingList (student, course, position) VALUES ('8209042134', 'MEM590', 1);
+INSERT INTO WaitingList (student, course, position) VALUES ('8209232134', 'MEM590', 1);
+INSERT INTO WaitingList (student, course, position) VALUES ('9712127384', 'MEM590', 2);
 INSERT INTO WaitingList (student, course, position) VALUES ('8209232134', 'EDA433', 1);
