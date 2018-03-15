@@ -1,17 +1,159 @@
-Domain(studentlogin, studentname, studentssn, departmentname, departmentabbr, programabbr, programname, coursename, coursecode, coursecredits, courseplaces, branchname, coursegrade, waitingspot)
+studentlogin studentname studentssn departmentname departmentabbr programabbr programname coursename coursecode coursecredits courseplaces branchname coursegrade waitingspot
 
 studentssn -> studentlogin studentname branchname programname
 studentssn coursecode -> coursegrade waitingspot
-studentlogin -> studentssn studentname branchname programname
+studentlogin -> studentssn
 
-coursecode waitingspot -> studentssn studentlogin
+coursecode waitingspot -> studentssn
 
 departmentabbr -> departmentname
 departmentname -> departmentabbr
 
-programname departmentname -> departmentname
+programname branchname -> branchname
+
+programabbr -> programname
+
+coursecode -> coursename coursecredits courseplaces departmentname
 
 
-programname -> programabbr
+This BCNF decomposition was done with the query-converter:
 
-coursecode -> coursename coursecredits courseplaces
+1. Attributes:
+departmentabbr departmentname
+Keys:
+departmentname
+departmentabbr
+
+Functional dependencies:
+departmentabbr -> departmentname
+departmentname -> departmentabbr
+
+
+
+2. Attributes:
+coursecode coursename coursecredits courseplaces departmentabbr
+Keys:
+coursecode
+
+Functional dependencies:
+coursecode -> coursename
+coursecode -> coursecredits
+coursecode -> courseplaces
+coursecode -> departmentabbr
+coursecode departmentabbr -> coursename
+coursecode departmentabbr -> coursecredits
+coursecode departmentabbr -> courseplaces
+coursecode courseplaces -> coursename
+coursecode courseplaces -> coursecredits
+coursecode courseplaces -> departmentabbr
+coursecode courseplaces departmentabbr -> coursename
+coursecode courseplaces departmentabbr -> coursecredits
+coursecode coursecredits -> coursename
+coursecode coursecredits -> courseplaces
+coursecode coursecredits -> departmentabbr
+coursecode coursecredits departmentabbr -> coursename
+coursecode coursecredits departmentabbr -> courseplaces
+coursecode coursecredits courseplaces -> coursename
+coursecode coursecredits courseplaces -> departmentabbr
+coursecode coursecredits courseplaces departmentabbr -> coursename
+coursecode coursename -> coursecredits
+coursecode coursename -> courseplaces
+coursecode coursename -> departmentabbr
+coursecode coursename departmentabbr -> coursecredits
+coursecode coursename departmentabbr -> courseplaces
+coursecode coursename courseplaces -> coursecredits
+coursecode coursename courseplaces -> departmentabbr
+coursecode coursename courseplaces departmentabbr -> coursecredits
+coursecode coursename coursecredits -> courseplaces
+coursecode coursename coursecredits -> departmentabbr
+coursecode coursename coursecredits departmentabbr -> courseplaces
+coursecode coursename coursecredits courseplaces -> departmentabbr
+
+
+
+3. Attributes:
+studentssn studentlogin studentname programname branchname
+Keys:
+studentlogin
+studentssn
+
+Functional dependencies:
+studentssn -> studentlogin
+studentssn -> studentname
+studentssn -> programname
+studentssn -> branchname
+studentssn branchname -> studentlogin
+studentssn branchname -> studentname
+studentssn branchname -> programname
+studentssn programname -> studentlogin
+studentssn programname -> studentname
+studentssn programname -> branchname
+studentssn programname branchname -> studentlogin
+studentssn programname branchname -> studentname
+studentname studentssn -> studentlogin
+studentname studentssn -> programname
+studentname studentssn -> branchname
+studentname studentssn branchname -> studentlogin
+studentname studentssn branchname -> programname
+studentname studentssn programname -> studentlogin
+studentname studentssn programname -> branchname
+studentname studentssn programname branchname -> studentlogin
+studentlogin -> studentname
+studentlogin -> studentssn
+studentlogin -> programname
+studentlogin -> branchname
+studentlogin branchname -> studentname
+studentlogin branchname -> studentssn
+studentlogin branchname -> programname
+studentlogin programname -> studentname
+studentlogin programname -> studentssn
+studentlogin programname -> branchname
+studentlogin programname branchname -> studentname
+studentlogin programname branchname -> studentssn
+studentlogin studentssn -> studentname
+studentlogin studentssn -> programname
+studentlogin studentssn -> branchname
+studentlogin studentssn branchname -> studentname
+studentlogin studentssn branchname -> programname
+studentlogin studentssn programname -> studentname
+studentlogin studentssn programname -> branchname
+studentlogin studentssn programname branchname -> studentname
+studentlogin studentname -> studentssn
+studentlogin studentname -> programname
+studentlogin studentname -> branchname
+studentlogin studentname branchname -> studentssn
+studentlogin studentname branchname -> programname
+studentlogin studentname programname -> studentssn
+studentlogin studentname programname -> branchname
+studentlogin studentname programname branchname -> studentssn
+studentlogin studentname studentssn -> programname
+studentlogin studentname studentssn -> branchname
+studentlogin studentname studentssn branchname -> programname
+studentlogin studentname studentssn programname -> branchname
+
+
+
+4. Attributes:
+coursecode waitingspot studentssn coursegrade
+Keys:
+coursecode studentssn
+coursecode waitingspot
+
+Functional dependencies:
+coursecode studentssn -> waitingspot
+coursecode studentssn -> coursegrade
+coursecode studentssn coursegrade -> waitingspot
+coursecode waitingspot -> studentssn
+coursecode waitingspot -> coursegrade
+coursecode waitingspot coursegrade -> studentssn
+coursecode waitingspot studentssn -> coursegrade
+
+
+
+5. Attributes:
+programabbr coursecode waitingspot
+Keys:
+programabbr coursecode waitingspot
+
+Functional dependencies:
+none

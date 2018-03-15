@@ -4,8 +4,8 @@ Student(_ssn,name,login,programName)
 
 Program(_name,abbrevation)
 
-Department(_abbrevation,name)
-  UNIQUE name
+Department(abbrevation,_name)
+  UNIQUE abbrevation
 
 Course(_code,name,credits)
 
@@ -33,9 +33,13 @@ Registered(_studentSsn,_courseCode)
   studentSsn -> Student.ssn
   courseCode -> Course.code
 
-WaitingForSpot(_studentSsn,_courseCode,spot)
+WaitingForSpot(_studentSsn,_limitedCourse,spot)
   studentSsn -> Student.ssn
+  limitedCourse -> LimitedCourse.code
+
+GivenBy(_courseCode,_departmentName)
   courseCode -> Course.code
+  departmentName -> Department.name
 
 MandatoryProgram(_programName,_courseCode)
   programName -> Program.name
