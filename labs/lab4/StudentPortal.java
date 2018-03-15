@@ -40,12 +40,7 @@ public class StudentPortal
             props.setProperty("password",PASSWORD);
             Connection conn = DriverManager.getConnection(url, props);
 
-
-            String student = "4806035598"; // This is the identifier for the student.
-
-            if(args.length != 0) {
-                student = args[0];
-            }
+            String student = args[0]; // This is the identifier for the student.
 
             //Console console = System.console();
             // In Eclipse. System.console() returns null due to a bug (https://bugs.eclipse.org/bugs/show_bug.cgi?id=122429)
