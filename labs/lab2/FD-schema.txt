@@ -1,9 +1,10 @@
-Department(_name_,_abbr_)
-	UNIQUE name
+Department(_name_,abbr)
 	UNIQUE abbr
 
 Course(_code_, name, credits, places, departmentabbr)
 	departmentabbr -> Department.abbr
+
+Program(_name_, abbr)
 
 Student(_ssn_, login, name, program, branch)
 	UNIQUE login
@@ -12,7 +13,3 @@ CourseStatus(_student_, _course_, grade, waitingspot)
 	student -> Student.ssn
 	course -> Course.code
 	UNIQUE (course, waitingspot)
-
-Relation(programabbr, _course_, _waitingspot_)
-	course -> Course.code
-	waitingspot -> CourseStatus.waitingspot
